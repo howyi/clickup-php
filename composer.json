@@ -1,0 +1,22 @@
+{
+    "name": "howyi/clickup-php",
+    "description": "ClickUp API client (unofficial)",
+    "keywords": ["ClickUp", "click-up", "api"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name":  "Hayashi Takuya",
+            "email": "qrbys@outlook.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0.16"
+    },
+    "autoload": {
+        "psr-0": {
+            "ClickUp": "src/ClickUp/"
+        }
+    }
+}
