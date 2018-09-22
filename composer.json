@@ -12,11 +12,13 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.0.16"
+        "php": ">=5.6",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "autoload": {
-        "psr-0": {
-            "ClickUp": "src/ClickUp/"
-        }
+      "psr-4": { "ClickUp\\": "src/ClickUp/" }
+    },
+    "require-dev": {
+        "psy/psysh": "^0.9.8"
     }
 }
