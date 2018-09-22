@@ -4,7 +4,9 @@ namespace ClickUp\Objects;
 
 class Team extends AbstractObject
 {
-	/* @var int $id*/
+	use TaskFinderTrait;
+
+	/* @var int $id */
 	private $id;
 
 	/* @var string $name */
@@ -67,6 +69,14 @@ class Team extends AbstractObject
 		$spaces = $this->client()->space($this->id());
 		$spaces->setTeam($this);
 		return $spaces;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function teamId()
+	{
+		return $this->id();
 	}
 
 	/**

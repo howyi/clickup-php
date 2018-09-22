@@ -20,7 +20,14 @@ class SpaceCollection extends AbstractObjectCollection
 
 	public function setTeam(Team $team) {
 		foreach ($this as $space) {
+			$space->setTeamId($team->id());
 			$space->setTeam($team);
+		}
+	}
+
+	public function setTeamId($teamId) {
+		foreach ($this as $space) {
+			$space->setTeamId($teamId);
 		}
 	}
 }

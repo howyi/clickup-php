@@ -4,12 +4,16 @@ namespace ClickUp;
 
 use ClickUp\Objects\ProjectCollection;
 use ClickUp\Objects\SpaceCollection;
+use ClickUp\Objects\TaskCollection;
+use ClickUp\Objects\TaskFinderTrait;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
 use ClickUp\Objects\User;
 
 class Client
 {
+	use TaskFinderTrait;
+
 	private $guzzleClient;
 
 	public function __construct($token)
@@ -20,6 +24,11 @@ class Client
 				'Authorization' => $token,
 			]
 		]);
+	}
+
+	public function client()
+	{
+		return $this;
 	}
 
 	/**
@@ -56,14 +65,24 @@ class Client
 		);
 	}
 
+	/**
+	 * @param int $teamId
+	 * @return SpaceCollection
+	 */
 	public function space($teamId)
 	{
-		return new SpaceCollection(
+		$collection = new SpaceCollection(
 			$this,
 			$this->get("team/$teamId/space")['spaces']
 		);
+		$collection->setTeamId($teamId);
+		return $collection;
 	}
 
+	/**
+	 * @param int $spaceId
+	 * @return ProjectCollection
+	 */
 	public function projects($spaceId)
 	{
 		return new ProjectCollection(
@@ -80,8 +99,17 @@ class Client
 	{
 	}
 
+	/**
+	 * @param int   $teamId
+	 * @param array $params
+	 * @return TaskCollection
+	 */
 	public function getTasks($teamId, $params)
 	{
+		return new TaskCollection(
+			$this,
+			$this->get("team/$teamId/task", $params)['tasks']
+		);
 	}
 
 	public function createTask($listId, $body)
@@ -100,7 +128,8 @@ class Client
 	public function get($method, $params = [])
 	{
 		dump("request : $method");
-		return \GuzzleHttp\json_decode($this->guzzleClient->request('GET', $method, ['json' => $params])->getBody(), true);
+		dump($params);
+		return \GuzzleHttp\json_decode($this->guzzleClient->request('GET', $method, ['query' => $params])->getBody(), true);
 	}
 
 	public function post($method, $body = [])

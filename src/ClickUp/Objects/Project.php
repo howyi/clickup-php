@@ -4,6 +4,8 @@ namespace ClickUp\Objects;
 
 class Project extends AbstractObject
 {
+	use TaskFinderTrait;
+
 	/* @var int $id*/
 	private $id;
 
@@ -94,6 +96,22 @@ class Project extends AbstractObject
 	public function createTaskList($name)
 	{
 		// TODO
+	}
+
+	/**
+	 * @return int
+	 */
+	public function teamId()
+	{
+		return $this->space()->team()->id();
+	}
+
+	/**
+	 * @return array
+	 */
+	public function taskFindParams()
+	{
+		return ['project_ids' => [$this->id()]];
 	}
 
 	/**

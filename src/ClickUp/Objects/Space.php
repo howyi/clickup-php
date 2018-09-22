@@ -4,6 +4,8 @@ namespace ClickUp\Objects;
 
 class Space extends AbstractObject
 {
+	use TaskFinderTrait;
+
 	/* @var int $id*/
 	private $id;
 
@@ -18,6 +20,9 @@ class Space extends AbstractObject
 
 	/* @var array $clickApps */
 	private $clickApps;
+
+	/* @var int|null $teamId */
+	private $teamId;
 
 	/* @var Team|null $team */
 	private $team;
@@ -88,6 +93,30 @@ class Space extends AbstractObject
 	public function setTeam(Team $team)
 	{
 		$this->team = $team;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function teamId()
+	{
+		return $this->teamId;
+	}
+
+	/**
+	 * @param int $teamId
+	 */
+	public function setTeamId($teamId)
+	{
+		$this->teamId = $teamId;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function taskFindParams()
+	{
+		return ['space_ids' => [$this->id()]];
 	}
 
 	/**
