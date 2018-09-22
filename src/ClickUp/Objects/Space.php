@@ -60,6 +60,16 @@ class Space extends AbstractObject
 	}
 
 	/**
+	 * @return ProjectCollection
+	 */
+	public function projects()
+	{
+		$projects = $this->client()->projects($this->id());
+		$projects->setStatuses($this->statuses());
+		return $projects;
+	}
+
+	/**
 	 * @param array $array
 	 */
 	public function fromArray($array)

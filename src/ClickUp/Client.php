@@ -2,6 +2,7 @@
 
 namespace ClickUp;
 
+use ClickUp\Objects\ProjectCollection;
 use ClickUp\Objects\SpaceCollection;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
@@ -65,6 +66,10 @@ class Client
 
 	public function projects($spaceId)
 	{
+		return new ProjectCollection(
+			$this,
+			$this->get("space/$spaceId/project")['projects']
+		);
 	}
 
 	public function createList($projectId, $body)
