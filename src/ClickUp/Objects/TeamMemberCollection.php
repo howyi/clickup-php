@@ -5,7 +5,8 @@ namespace ClickUp\Objects;
 use ClickUp\Client;
 
 /**
- * @method TeamMember   getById(int $id)
+ * @method TeamMember   getByKey(int $userId)
+ * @method TeamMember   getByName(string $username)
  * @method TeamMember[] objects()
  * @method TeamMember[] getIterator()
  */

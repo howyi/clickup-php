@@ -26,7 +26,6 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	 */
 	abstract protected function objectClass();
 
-
 	/**
 	 * @return string
 	 */
@@ -36,12 +35,38 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	}
 
 	/**
+	 * @return string
+	 */
+	public function nameKey()
+	{
+		return 'name';
+	}
+
+	/**
 	 * @param int $id
 	 * @return AbstractObject
 	 */
-	public function getById($id)
+	public function getByKey($id)
 	{
+		if (!isset($this->objects[$id])) {
+			throw new \RuntimeException("id:$id not exist.");
+		}
 		return $this->objects[$id];
+	}
+
+	/**
+	 * @param string $name
+	 * @return AbstractObject
+	 */
+	public function getByName($name)
+	{
+		$nameKey = $this->nameKey();
+		foreach ($this as $value) {
+			if ($name === $value->$nameKey()) {
+				return $value;
+			}
+		}
+		throw new \RuntimeException("name:$name not exist.");
 	}
 
 	/**

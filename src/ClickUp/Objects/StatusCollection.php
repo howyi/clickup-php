@@ -3,7 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Status   getById(int $id)
+ * @method Status   getByKey(int $orderindex)
+ * @method Status   getByName(string $statusName)
  * @method Status[] objects()
  * @method Status[] getIterator()
  */

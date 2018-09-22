@@ -3,7 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Project   getById(int $id)
+ * @method Project   getByKey(int $projectId)
+ * @method Project   getByName(string $projectName)
  * @method Project[] objects()
  * @method Project[] getIterator()
  */

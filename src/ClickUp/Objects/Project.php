@@ -10,7 +10,7 @@ class Project extends AbstractObject
 	/* @var string $name */
 	private $name;
 
-	/* @var array $taskLists */
+	/* @var TaskListCollection $taskLists */
 	private $taskLists;
 
 	/* @var bool $overrideStatuses */
@@ -39,7 +39,7 @@ class Project extends AbstractObject
 	}
 
 	/**
-	 * @return array
+	 * @return TaskListCollection
 	 */
 	public function taskLists()
 	{
@@ -103,7 +103,10 @@ class Project extends AbstractObject
 	{
 		$this->id = $array['id'];
 		$this->name = $array['name'];
-		$this->taskLists = $array['lists'];
+		$this->taskLists = new TaskListCollection(
+			$this,
+			$array['lists']
+		);
 		$this->overrideStatuses = isset($array['override_statuses']) ? $array['override_statuses'] : false;
 		if (isset($array['override_statuses']) and $array['override_statuses']) {
 			$this->statuses = new StatusCollection(
