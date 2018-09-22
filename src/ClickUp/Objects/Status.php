@@ -51,7 +51,7 @@ class Status extends AbstractObject
 	/**
 	 * @param array $array
 	 */
-	public function fromArray($array)
+	protected function fromArray($array)
 	{
 		$this->id = $array['orderindex'];
 		$this->name = $array['status'];

@@ -69,7 +69,7 @@ class Client
 	 * @param int $teamId
 	 * @return SpaceCollection
 	 */
-	public function space($teamId)
+	public function spaces($teamId)
 	{
 		$collection = new SpaceCollection(
 			$this,

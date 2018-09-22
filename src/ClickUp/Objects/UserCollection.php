@@ -13,7 +13,7 @@ class UserCollection extends AbstractObjectCollection
 	/**
 	 * @return string
 	 */
-	public function nameKey()
+	protected function nameKey()
 	{
 		return 'username';
 	}

@@ -22,22 +22,22 @@ abstract class AbstractObject
 		$this->setExtra($array);
 	}
 
-	abstract public function fromArray($array);
+	abstract protected function fromArray($array);
 
 	/**
 	 * @return Client
 	 */
-	public function client()
+	protected function client()
 	{
 		return $this->client;
 	}
 
-	public function setClient(Client $client)
+	private function setClient(Client $client)
 	{
 		$this->client = $client;
 	}
 
-	public function setExtra($array)
+	private function setExtra($array)
 	{
 		$this->extra = $array;
 	}

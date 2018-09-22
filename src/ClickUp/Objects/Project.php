@@ -117,7 +117,7 @@ class Project extends AbstractObject
 	/**
 	 * @param array $array
 	 */
-	public function fromArray($array)
+	protected function fromArray($array)
 	{
 		$this->id = $array['id'];
 		$this->name = $array['name'];

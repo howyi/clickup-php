@@ -66,7 +66,7 @@ class Team extends AbstractObject
 	 */
 	public function spaces()
 	{
-		$spaces = $this->client()->space($this->id());
+		$spaces = $this->client()->spaces($this->id());
 		$spaces->setTeam($this);
 		return $spaces;
 	}
@@ -82,7 +82,7 @@ class Team extends AbstractObject
 	/**
 	 * @param array $array
 	 */
-	public function fromArray($array)
+	protected function fromArray($array)
 	{
 		$this->id = $array['id'];
 		$this->name = $array['name'];

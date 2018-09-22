@@ -10,7 +10,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	/**
 	 * @param array $array
 	 */
-	public function fromArray($array)
+	protected function fromArray($array)
 	{
 		$class = $this->objectClass();
 		foreach ($array as $value) {
@@ -29,7 +29,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	/**
 	 * @return string
 	 */
-	public function key()
+	protected function key()
 	{
 		return 'id';
 	}
@@ -37,7 +37,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	/**
 	 * @return string
 	 */
-	public function nameKey()
+	protected function nameKey()
 	{
 		return 'name';
 	}
