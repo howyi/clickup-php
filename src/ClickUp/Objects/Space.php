@@ -13,7 +13,7 @@ class Space extends AbstractObject
 	/* @var bool $isPrivate */
 	private $isPrivate;
 
-	/* @var array $statuses */
+	/* @var StatusCollection $statuses */
 	private $statuses;
 
 	/* @var array $clickApps */
@@ -44,7 +44,7 @@ class Space extends AbstractObject
 	}
 
 	/**
-	 * @return array
+	 * @return StatusCollection
 	 */
 	public function statuses()
 	{
@@ -67,8 +67,10 @@ class Space extends AbstractObject
 		$this->id = $array['id'];
 		$this->name = $array['name'];
 		$this->isPrivate = $array['private'];
-		// TODO collectable status
-		$this->statuses = $array['statuses'];
+		$this->statuses = new StatusCollection(
+			$this->client(),
+			$array['statuses']
+		);
 		$this->clickApps = [
 			'multiple_assignees' => isset($array['multiple_assignees']) ? $array['multiple_assignees'] : false,
 			'due_dates' => isset($array['features']['due_dates']['enabled']) ? $array['features']['due_dates']['enabled'] : false,

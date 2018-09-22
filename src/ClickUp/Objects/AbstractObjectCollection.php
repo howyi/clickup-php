@@ -14,7 +14,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	{
 		$class = $this->objectClass();
 		foreach ($array as $value) {
-			$this->objects[$value['id']] = new $class(
+			$this->objects[$value[$this->key()]] = new $class(
 				$this->client(),
 				$value
 			);
@@ -25,6 +25,15 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	 * @return string
 	 */
 	abstract protected function objectClass();
+
+
+	/**
+	 * @return string
+	 */
+	public function key()
+	{
+		return 'id';
+	}
 
 	/**
 	 * @param int $id
