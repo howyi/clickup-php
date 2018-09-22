@@ -64,7 +64,9 @@ class Team extends AbstractObject
 	 */
 	public function spaces()
 	{
-		return $this->client()->space($this->id());
+		$spaces = $this->client()->space($this->id());
+		$spaces->setTeam($this);
+		return $spaces;
 	}
 
 	/**
@@ -77,7 +79,7 @@ class Team extends AbstractObject
 		$this->color = $array['color'];
 		$this->avatar = $array['avatar'];
 		$this->members = new TeamMemberCollection(
-			$this->client(),
+			$this,
 			$array['members']
 		);
 	}

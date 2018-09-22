@@ -19,6 +19,9 @@ class Space extends AbstractObject
 	/* @var array $clickApps */
 	private $clickApps;
 
+	/* @var Team|null $team */
+	private $team;
+
 	/**
 	 * @return int
 	 */
@@ -65,8 +68,26 @@ class Space extends AbstractObject
 	public function projects()
 	{
 		$projects = $this->client()->projects($this->id());
-		$projects->setStatuses($this->statuses());
+		$projects->setSpace($this);
 		return $projects;
+	}
+
+	/**
+	 * Access parent class.
+	 *
+	 * @return Team|null
+	 */
+	public function team()
+	{
+		return $this->team;
+	}
+
+	/**
+	 * @param Team $team
+	 */
+	public function setTeam(Team $team)
+	{
+		$this->team = $team;
 	}
 
 	/**

@@ -16,4 +16,10 @@ class SpaceCollection extends AbstractObjectCollection
 	{
 		return Space::class;
 	}
+
+	public function setTeam(Team $team) {
+		foreach ($this as $space) {
+			$space->setTeam($team);
+		}
+	}
 }

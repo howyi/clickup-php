@@ -17,10 +17,11 @@ class ProjectCollection extends AbstractObjectCollection
 		return Project::class;
 	}
 
-	public function setStatuses(StatusCollection $statuses) {
+	public function setSpace(Space $space) {
 		foreach ($this as $project) {
+			$project->setSpace($space);
 			if ($project->overrideStatuses() === false) {
-				$project->setStatuses($statuses);
+				$project->setStatuses($space->statuses());
 			}
 		}
 	}

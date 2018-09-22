@@ -16,8 +16,11 @@ class Project extends AbstractObject
 	/* @var bool $overrideStatuses */
 	private $overrideStatuses;
 
-	/* @var StatusCollection $statuses */
-	private $statuses;
+	/* @var StatusCollection|null $statuses */
+	private $statuses = null;
+
+	/* @var Space|null $space */
+	private $space = null;
 
 	/**
 	 * @return int
@@ -60,11 +63,37 @@ class Project extends AbstractObject
 	}
 
 	/**
+	 * Access parent class.
+	 *
+	 * @return Space|null
+	 */
+	public function space()
+	{
+		return $this->space;
+	}
+
+	/**
+	 * @param Space $space
+	 */
+	public function setSpace(Space $space)
+	{
+		$this->space = $space;
+	}
+
+	/**
 	 * @param StatusCollection $statuses
 	 */
 	public function setStatuses(StatusCollection $statuses)
 	{
 		$this->statuses = $statuses;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function createTaskList($name)
+	{
+		// TODO
 	}
 
 	/**

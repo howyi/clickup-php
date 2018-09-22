@@ -2,6 +2,8 @@
 
 namespace ClickUp\Objects;
 
+use ClickUp\Client;
+
 /**
  * @method TeamMember   getById(int $id)
  * @method TeamMember[] objects()
@@ -9,6 +11,12 @@ namespace ClickUp\Objects;
  */
 class TeamMemberCollection extends UserCollection
 {
+	public function __construct(Team $team, $array)
+	{
+		parent::__construct($team->client(), $array);
+		$this->setTeam($team);
+	}
+
 	/**
 	 * @return string
 	 */
@@ -26,5 +34,11 @@ class TeamMemberCollection extends UserCollection
 			$array[$key] = $value['user'];
 		}
 		parent::fromArray($array);
+	}
+
+	public function setTeam(Team $team) {
+		foreach ($this as $teamMember) {
+			$teamMember->setTeam($team);
+		}
 	}
 }
