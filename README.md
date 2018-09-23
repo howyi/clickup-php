@@ -5,7 +5,10 @@ A simple wrapper for [ClickUp](https://clickup.com/) API (v1-BETA).
 
 ## Install
 
-TODO
+1. require library (Laravel/Lumen)
+```
+composer require "howyi/clickup-php"
+```
 
 ## Usage
  
