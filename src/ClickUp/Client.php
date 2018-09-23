@@ -125,22 +125,22 @@ class Client
 	 * @param array  $params
 	 * @return mixed
 	 */
-	public function get($method, $params = [])
+	private function get($method, $params = [])
 	{
 		dump("request : $method");
 		dump($params);
 		return \GuzzleHttp\json_decode($this->guzzleClient->request('GET', $method, ['query' => $params])->getBody(), true);
 	}
 
-	public function post($method, $body = [])
+	private function post($method, $body = [])
 	{
 	}
 
-	public function put($method, $body = [])
+	private function put($method, $body = [])
 	{
 	}
 
-	public function delete($method, $params = [])
+	private function delete($method, $params = [])
 	{
 	}
 
