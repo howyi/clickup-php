@@ -4,8 +4,6 @@ A simple wrapper for [ClickUp](https://clickup.com/) API (v1-BETA).
 
 
 ## Install
-
-1. require library (Laravel/Lumen)
 ```
 composer require "howyi/clickup-php"
 ```
@@ -79,7 +77,6 @@ $task = $client->tasks($teamId)->getByTaskId(3333);
 
 ### create 
 ```php
-
 /**
  * create task list in project
  * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/create-list.html
