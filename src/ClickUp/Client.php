@@ -17,12 +17,12 @@ class Client
 
 	private $guzzleClient;
 
-	public function __construct($token)
+	public function __construct($apiToken)
 	{
 		$this->guzzleClient = new \GuzzleHttp\Client([
 			'base_uri' => 'https://api.clickup.com/api/v1/',
 			'headers' => [
-				'Authorization' => $token,
+				'Authorization' => $apiToken,
 			]
 		]);
 	}
