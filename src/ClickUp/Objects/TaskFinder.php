@@ -28,9 +28,35 @@ class TaskFinder
 	/**
 	 * @return TaskCollection
 	 */
-	public function get()
+	public function getCollection()
 	{
 		return $this->client->getTasks($this->teamId, $this->params);
+	}
+
+	/**
+	 * @param $taskId
+	 * @return Task
+	 */
+	public function getByTaskId($taskId)
+	{
+		return $this
+			->includeSubTask()
+			->includeClosed()
+			->addParams(['task_ids' => [$taskId]])
+			->getCollection()
+			->getByKey($taskId);
+	}
+
+	public function includeSubTask($include = true)
+	{
+		$this->addParams(['subtasks' => $include]);
+		return $this;
+	}
+
+	public function includeClosed($include = true)
+	{
+		$this->addParams(['include_closed' => $include]);
+		return $this;
 	}
 
 	public function addParams($params)

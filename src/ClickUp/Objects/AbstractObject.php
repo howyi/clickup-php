@@ -14,6 +14,7 @@ abstract class AbstractObject
 
 	/**
 	 * @param Client $client
+	 * @param array  $array
 	 */
 	public function __construct(Client $client, $array)
 	{
