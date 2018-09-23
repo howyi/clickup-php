@@ -20,10 +20,18 @@ class ProjectCollection extends AbstractObjectCollection
 
 	public function setSpace(Space $space) {
 		foreach ($this as $project) {
+			$project->setSpaceId($space->id());
 			$project->setSpace($space);
 			if ($project->overrideStatuses() === false) {
 				$project->setStatuses($space->statuses());
 			}
+		}
+	}
+
+
+	public function setSpaceId($spaceId) {
+		foreach ($this as $project) {
+			$project->setSpaceId($spaceId);
 		}
 	}
 }

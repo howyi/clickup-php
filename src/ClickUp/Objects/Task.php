@@ -247,28 +247,17 @@ class Task extends AbstractObject
 		return $this->team;
 	}
 
-	public function editName($name)
+	/**
+	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/edit-task.html
+	 * @param array $body
+	 * @return array
+	 */
+	public function edit($body)
 	{
-	}
-
-	public function editDescription($description)
-	{
-	}
-
-	public function editAssignees($addUsers = [], $removeUsers = [])
-	{
-	}
-
-	public function editStatus($status)
-	{
-	}
-
-	public function editPriority($priority)
-	{
-	}
-
-	public function editDueDate(\DateTimeInterface $dueDate)
-	{
+		return $this->client()->editTask(
+			$this->id(),
+			$body
+		);
 	}
 
 	/**

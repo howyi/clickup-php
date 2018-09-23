@@ -2,6 +2,7 @@
 
 namespace ClickUp;
 
+use ClickUp\Objects\Project;
 use ClickUp\Objects\ProjectCollection;
 use ClickUp\Objects\SpaceCollection;
 use ClickUp\Objects\TaskCollection;
@@ -79,24 +80,80 @@ class Client
 		return $collection;
 	}
 
+	public function space($teamId, $spaceId)
+	{
+		return $this->spaces($teamId)->getByKey($spaceId);
+	}
+
 	/**
 	 * @param int $spaceId
 	 * @return ProjectCollection
 	 */
 	public function projects($spaceId)
 	{
-		return new ProjectCollection(
+		$collection = new ProjectCollection(
 			$this,
 			$this->get("space/$spaceId/project")['projects']
 		);
+		$collection->setSpaceId($spaceId);
+		return $collection;
 	}
 
-	public function createList($projectId, $body)
+	/**
+	 * @param $spaceId
+	 * @param $projectId
+	 * @return Project
+	 */
+	public function project($spaceId, $projectId)
 	{
+		return $this->projects($spaceId)->getByKey($projectId);
 	}
 
-	public function editList($projectId, $body)
+	/**
+	 * @param $spaceId
+	 * @param $projectId
+	 * @return Objects\TaskListCollection
+	 */
+	public function taskLists($spaceId, $projectId)
 	{
+		return $this->project($spaceId, $projectId)->taskLists();
+	}
+
+	/**
+	 * @param $spaceId
+	 * @param $projectId
+	 * @param $taskListId
+	 * @return Objects\TaskList
+	 */
+	public function taskList($spaceId, $projectId, $taskListId)
+	{
+		return $this->taskLists($spaceId, $projectId)->getByKey($taskListId);
+	}
+
+	/**
+	 * @param int $projectId
+	 * @param array $body
+	 * @return array
+	 */
+	public function createTaskList($projectId, $body)
+	{
+		return $this->post(
+			"project/$projectId/list",
+			$body
+		);
+	}
+
+	/**
+	 * @param $taskListId
+	 * @param $body
+	 * @return array
+	 */
+	public function editTaskList($taskListId, $body)
+	{
+		return $this->put(
+			"list/$taskListId",
+			$body
+		);
 	}
 
 	/**
@@ -108,16 +165,30 @@ class Client
 	{
 		return new TaskCollection(
 			$this,
-			$this->get("team/$teamId/task", $params)['tasks']
+			$this->get("team/$teamId/task", $params)['tasks'],
+			$teamId
 		);
 	}
 
-	public function createTask($listId, $body)
+	/**
+	 * @param int $taskListId
+	 * @param array $body
+	 * @return array
+	 */
+	public function createTask($taskListId, $body)
 	{
+		return $this->post(
+			"list/$taskListId/task",
+			$body
+		);
 	}
 
 	public function editTask($taskId, $body)
 	{
+		return $this->put(
+			"task/$taskId",
+			$body
+		);
 	}
 
 	/**
@@ -127,21 +198,27 @@ class Client
 	 */
 	private function get($method, $params = [])
 	{
-		dump("request : $method");
-		dump($params);
 		return \GuzzleHttp\json_decode($this->guzzleClient->request('GET', $method, ['query' => $params])->getBody(), true);
 	}
 
+	/**
+	 * @param string $method
+	 * @param array $body
+	 * @return mixed
+	 */
 	private function post($method, $body = [])
 	{
+		return \GuzzleHttp\json_decode($this->guzzleClient->request('POST', $method, ['json' => $body])->getBody(), true);
 	}
 
+	/**
+	 * @param string $method
+	 * @param array $body
+	 * @return mixed
+	 */
 	private function put($method, $body = [])
 	{
-	}
-
-	private function delete($method, $params = [])
-	{
+		return \GuzzleHttp\json_decode($this->guzzleClient->request('PUT', $method, ['json' => $body])->getBody(), true);
 	}
 
 	public function guzzleClient()

@@ -11,12 +11,9 @@ class TaskList extends AbstractObject
 
 	/* @var string $name */
 	private $name;
-	
-	/* @var TaskCollection $tasks */
-	private $tasks;
 
-	/* @var Project|null $space */
-	private $project = null;
+	/* @var Project $project */
+	private $project;
 
 	/**
 	 * @return int
@@ -37,7 +34,7 @@ class TaskList extends AbstractObject
 	/**
 	 * Access parent class.
 	 *
-	 * @return Project|null
+	 * @return Project
 	 */
 	public function project()
 	{
@@ -53,24 +50,29 @@ class TaskList extends AbstractObject
 	}
 
 	/**
-	 * @param string $name
+	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
+	 * @param array $body
+	 * @return array
 	 */
-	public function editName($name)
+	public function edit($body)
 	{
-		// TODO
+		return $this->client()->editTaskList(
+			$this->id(),
+			$body
+		);
 	}
 
 	/**
-	 * @param string             $name
-	 * @param string             $content
-	 * @param int[]              $assignees
-	 * @param string             $statusName
-	 * @param int                $priority
-	 * @param \DateTimeInterface $dueDate
+	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
+	 * @param array $body
+	 * @return array
 	 */
-	public function createTask($name, $content, $assignees, $statusName, $priority, \DateTimeInterface $dueDate)
+	public function createTask($body)
 	{
-		// TODO
+		return $this->client()->createTask(
+			$this->id(),
+			$body
+		);
 	}
 
 	/**

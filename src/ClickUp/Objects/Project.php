@@ -21,6 +21,9 @@ class Project extends AbstractObject
 	/* @var StatusCollection|null $statuses */
 	private $statuses = null;
 
+	/* @var int $spaceId */
+	private $spaceId;
+
 	/* @var Space|null $space */
 	private $space = null;
 
@@ -64,6 +67,16 @@ class Project extends AbstractObject
 		return $this->statuses;
 	}
 
+	public function spaceId()
+	{
+		return $this->spaceId;
+	}
+
+	public function setSpaceId($spaceId)
+	{
+		$this->spaceId = $spaceId;
+	}
+
 	/**
 	 * Access parent class.
 	 *
@@ -91,11 +104,16 @@ class Project extends AbstractObject
 	}
 
 	/**
-	 * @param string $name
+	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/create-list.html
+	 * @param array $body
+	 * @return array
 	 */
-	public function createTaskList($name)
+	public function createTaskList($body)
 	{
-		// TODO
+		return $this->client()->createTaskList(
+			$this->id(),
+			$body
+		);
 	}
 
 	/**
