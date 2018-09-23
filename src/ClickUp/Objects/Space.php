@@ -24,8 +24,11 @@ class Space extends AbstractObject
 	/* @var int|null $teamId */
 	private $teamId;
 
-	/* @var Team|null $team */
+	/* @var Team $team */
 	private $team;
+
+	/* @var ProjectCollection|null $projects */
+	private $projects = null;
 
 	/**
 	 * @return int
@@ -72,15 +75,29 @@ class Space extends AbstractObject
 	 */
 	public function projects()
 	{
-		$projects = $this->client()->projects($this->id());
-		$projects->setSpace($this);
-		return $projects;
+		if (is_null($this->projects)) {
+			$this->projects = new ProjectCollection(
+				$this,
+				$this->client()->get("space/{$this->id()}/project")['projects']
+			);
+		}
+		return $this->projects;
 	}
+
+	/**
+	 * @param $projectId
+	 * @return Project
+	 */
+	public function project($projectId)
+	{
+		return $this->projects()->getByKey($projectId);
+	}
+
 
 	/**
 	 * Access parent class.
 	 *
-	 * @return Team|null
+	 * @return Team
 	 */
 	public function team()
 	{
@@ -100,21 +117,13 @@ class Space extends AbstractObject
 	 */
 	public function teamId()
 	{
-		return $this->teamId;
-	}
-
-	/**
-	 * @param int $teamId
-	 */
-	public function setTeamId($teamId)
-	{
-		$this->teamId = $teamId;
+		return $this->team()->id();
 	}
 
 	/**
 	 * @return array
 	 */
-	public function taskFindParams()
+	protected function taskFindParams()
 	{
 		return ['space_ids' => [$this->id()]];
 	}

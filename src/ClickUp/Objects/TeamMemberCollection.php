@@ -2,8 +2,6 @@
 
 namespace ClickUp\Objects;
 
-use ClickUp\Client;
-
 /**
  * @method TeamMember   getByKey(int $userId)
  * @method TeamMember   getByName(string $username)
@@ -37,7 +35,7 @@ class TeamMemberCollection extends UserCollection
 		parent::fromArray($array);
 	}
 
-	public function setTeam(Team $team) {
+	private function setTeam(Team $team) {
 		foreach ($this as $teamMember) {
 			$teamMember->setTeam($team);
 		}

@@ -7,7 +7,7 @@ class TeamMember extends User
 	/* @var int $role */
 	private $role;
 
-	/* @var Team|null $team */
+	/* @var Team $team */
 	private $team;
 
 	/**
@@ -30,7 +30,7 @@ class TeamMember extends User
 	/**
 	 * Access parent class.
 	 *
-	 * @return Team|null
+	 * @return Team
 	 */
 	public function team()
 	{

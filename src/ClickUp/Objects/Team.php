@@ -21,6 +21,9 @@ class Team extends AbstractObject
 	/* @var TeamMemberCollection $members */
 	private $members;
 
+	/* @var SpaceCollection|null $spaces */
+	private $spaces = null;
+
 	/**
 	 * @return int
 	 */
@@ -66,9 +69,22 @@ class Team extends AbstractObject
 	 */
 	public function spaces()
 	{
-		$spaces = $this->client()->spaces($this->id());
-		$spaces->setTeam($this);
-		return $spaces;
+		if (is_null($this->spaces)) {
+			$this->spaces = new SpaceCollection(
+				$this,
+				$this->client()->get("team/{$this->id()}/space")['spaces']
+			);
+		}
+		return $this->spaces;
+	}
+
+	/**
+	 * @param $spaceId
+	 * @return Space
+	 */
+	public function space($spaceId)
+	{
+		return $this->spaces()->getByKey($spaceId);
 	}
 
 	/**

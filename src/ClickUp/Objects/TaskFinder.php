@@ -30,7 +30,11 @@ class TaskFinder
 	 */
 	public function getCollection()
 	{
-		return $this->client->getTasks($this->teamId, $this->params);
+		return new TaskCollection(
+			$this->client,
+			$this->client->get("team/{$this->teamId}/task",  $this->params)['tasks'],
+			$this->teamId
+		);
 	}
 
 	/**

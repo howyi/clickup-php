@@ -13,7 +13,9 @@ class TaskListCollection extends AbstractObjectCollection
 	public function __construct(Project $project, $array)
 	{
 		parent::__construct($project->client(), $array);
-		$this->setProject($project);
+		foreach ($this as $taskList) {
+			$taskList->setProject($project);
+		}
 	}
 
 	/**
@@ -22,11 +24,5 @@ class TaskListCollection extends AbstractObjectCollection
 	protected function objectClass()
 	{
 		return TaskList::class;
-	}
-
-	public function setProject(Project $project) {
-		foreach ($this as $taskList) {
-			$taskList->setProject($project);
-		}
 	}
 }

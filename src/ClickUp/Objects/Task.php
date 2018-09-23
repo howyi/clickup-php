@@ -4,6 +4,8 @@ namespace ClickUp\Objects;
 
 class Task extends AbstractObject
 {
+	use TaskFinderTrait;
+
 	/* @var string $id*/
 	private $id;
 
@@ -148,6 +150,9 @@ class Task extends AbstractObject
 		return !is_null($this->parentTaskId());
 	}
 
+	/**
+	 * @return Task|null
+	 */
 	public function parentTask()
 	{
 		if (is_null($this->parentTaskId())) {
@@ -155,8 +160,7 @@ class Task extends AbstractObject
 		}
 		if (is_null($this->parentTask)) {
 			$this->parentTask = $this
-				->client()
-				->tasks($this->teamId())
+				->tasks()
 				->getByTaskId($this->parentTaskId());
 		}
 		return $this->parentTask;
@@ -192,10 +196,13 @@ class Task extends AbstractObject
 		return $this->taskListId;
 	}
 
+	/**
+	 * @return TaskList
+	 */
 	public function taskList()
 	{
 		if (is_null($this->taskList)) {
-			$this->taskList = $this->project()->taskLists()->getByKey($this->taskListId());
+			$this->taskList = $this->project()->taskList($this->taskListId());
 		}
 		return $this->taskList;
 	}
@@ -205,23 +212,32 @@ class Task extends AbstractObject
 		return $this->projectId;
 	}
 
+	/**
+	 * @return Project
+	 */
 	public function project()
 	{
 		if (is_null($this->project)) {
-			$this->project = $this->client()->projects($this->spaceId())->getByKey($this->projectId());
+			$this->project = $this->space()->project($this->projectId());
 		}
 		return $this->project;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function spaceId()
 	{
 		return $this->spaceId;
 	}
 
+	/**
+	 * @return Space
+	 */
 	public function space()
 	{
 		if (is_null($this->space)) {
-			$this->space = $this->client()->spaces($this->teamId())->getByKey($this->spaceId());
+			$this->space = $this->team()->space($this->spaceId());
 		}
 		return $this->space;
 	}

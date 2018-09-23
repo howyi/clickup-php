@@ -86,7 +86,7 @@ class TaskList extends AbstractObject
 	/**
 	 * @return array
 	 */
-	public function taskFindParams()
+	protected function taskFindParams()
 	{
 		return ['list_ids' => [$this->id()]];
 	}

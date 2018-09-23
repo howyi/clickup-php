@@ -24,8 +24,8 @@ class Project extends AbstractObject
 	/* @var int $spaceId */
 	private $spaceId;
 
-	/* @var Space|null $space */
-	private $space = null;
+	/* @var Space $space */
+	private $space;
 
 	/**
 	 * @return int
@@ -49,6 +49,15 @@ class Project extends AbstractObject
 	public function taskLists()
 	{
 		return $this->taskLists;
+	}
+
+	/**
+	 * @param int $taskListId
+	 * @return TaskList
+	 */
+	public function taskList($taskListId)
+	{
+		return $this->taskLists()->getByKey($taskListId);
 	}
 
 	/**
@@ -80,7 +89,7 @@ class Project extends AbstractObject
 	/**
 	 * Access parent class.
 	 *
-	 * @return Space|null
+	 * @return Space
 	 */
 	public function space()
 	{
@@ -127,7 +136,7 @@ class Project extends AbstractObject
 	/**
 	 * @return array
 	 */
-	public function taskFindParams()
+	protected function taskFindParams()
 	{
 		return ['project_ids' => [$this->id()]];
 	}

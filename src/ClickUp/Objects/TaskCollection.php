@@ -15,7 +15,9 @@ class TaskCollection extends AbstractObjectCollection
 	public function __construct(Client $client, $array, $teamId)
 	{
 		parent::__construct($client, $array);
-		$this->setTeamId($teamId);
+		foreach ($this as $task) {
+			$task->setTeamId($teamId);
+		}
 	}
 
 	/**
@@ -24,11 +26,5 @@ class TaskCollection extends AbstractObjectCollection
 	protected function objectClass()
 	{
 		return Task::class;
-	}
-
-	public function setTeamId($teamId) {
-		foreach ($this as $task) {
-			$task->setTeamId($teamId);
-		}
 	}
 }

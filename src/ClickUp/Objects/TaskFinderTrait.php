@@ -7,27 +7,20 @@ use ClickUp\Client;
 trait TaskFinderTrait
 {
 	/**
-	 * @param int|null $teamId
 	 * @return TaskFinder
 	 */
-	public function tasks($teamId = null)
+	public function tasks()
 	{
-		if (is_null($teamId)) {
-			$teamId = $this->teamId();
-		}
 		return (new TaskFinder(
 			$this->client(),
-			$teamId
+			$this->teamId()
 		))->addParams($this->taskFindParams());
 	}
 
 	/**
-	 * @return int|null
+	 * @return int
 	 */
-	public function teamId()
-	{
-		return null;
-	}
+	abstract public function teamId();
 
 	/**
 	 * @return Client
@@ -37,7 +30,7 @@ trait TaskFinderTrait
 	/**
 	 * @return array
 	 */
-	public function taskFindParams()
+	protected function taskFindParams()
 	{
 		return [];
 	}
