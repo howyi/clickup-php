@@ -2,19 +2,14 @@
 
 namespace ClickUp;
 
-use ClickUp\Objects\Project;
-use ClickUp\Objects\ProjectCollection;
-use ClickUp\Objects\SpaceCollection;
 use ClickUp\Objects\TaskCollection;
-use ClickUp\Objects\TaskFinderTrait;
+use ClickUp\Objects\TaskFinder;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
 use ClickUp\Objects\User;
 
 class Client
 {
-	use TaskFinderTrait;
-
 	private $guzzleClient;
 
 	public function __construct($apiToken)
@@ -55,7 +50,7 @@ class Client
 	}
 
 	/**
-	 * @param $teamId
+	 * @param int $teamId
 	 * @return Team
 	 */
 	public function team($teamId)
@@ -64,70 +59,6 @@ class Client
 			$this,
 			$this->get("team/$teamId")['team']
 		);
-	}
-
-	/**
-	 * @param int $teamId
-	 * @return SpaceCollection
-	 */
-	public function spaces($teamId)
-	{
-		$collection = new SpaceCollection(
-			$this,
-			$this->get("team/$teamId/space")['spaces']
-		);
-		$collection->setTeamId($teamId);
-		return $collection;
-	}
-
-	public function space($teamId, $spaceId)
-	{
-		return $this->spaces($teamId)->getByKey($spaceId);
-	}
-
-	/**
-	 * @param int $spaceId
-	 * @return ProjectCollection
-	 */
-	public function projects($spaceId)
-	{
-		$collection = new ProjectCollection(
-			$this,
-			$this->get("space/$spaceId/project")['projects']
-		);
-		$collection->setSpaceId($spaceId);
-		return $collection;
-	}
-
-	/**
-	 * @param $spaceId
-	 * @param $projectId
-	 * @return Project
-	 */
-	public function project($spaceId, $projectId)
-	{
-		return $this->projects($spaceId)->getByKey($projectId);
-	}
-
-	/**
-	 * @param $spaceId
-	 * @param $projectId
-	 * @return Objects\TaskListCollection
-	 */
-	public function taskLists($spaceId, $projectId)
-	{
-		return $this->project($spaceId, $projectId)->taskLists();
-	}
-
-	/**
-	 * @param $spaceId
-	 * @param $projectId
-	 * @param $taskListId
-	 * @return Objects\TaskList
-	 */
-	public function taskList($spaceId, $projectId, $taskListId)
-	{
-		return $this->taskLists($spaceId, $projectId)->getByKey($taskListId);
 	}
 
 	/**
@@ -144,8 +75,8 @@ class Client
 	}
 
 	/**
-	 * @param $taskListId
-	 * @param $body
+	 * @param int   $taskListId
+	 * @param array $body
 	 * @return array
 	 */
 	public function editTaskList($taskListId, $body)
@@ -154,6 +85,15 @@ class Client
 			"list/$taskListId",
 			$body
 		);
+	}
+
+	/**
+	 * @param int $teamId
+	 * @return TaskFinder
+	 */
+	public function taskFinder($teamId)
+	{
+		return new TaskFinder($this, $teamId);
 	}
 
 	/**
@@ -196,7 +136,7 @@ class Client
 	 * @param array  $params
 	 * @return mixed
 	 */
-	private function get($method, $params = [])
+	public function get($method, $params = [])
 	{
 		return \GuzzleHttp\json_decode($this->guzzleClient->request('GET', $method, ['query' => $params])->getBody(), true);
 	}
@@ -206,7 +146,7 @@ class Client
 	 * @param array $body
 	 * @return mixed
 	 */
-	private function post($method, $body = [])
+	public function post($method, $body = [])
 	{
 		return \GuzzleHttp\json_decode($this->guzzleClient->request('POST', $method, ['json' => $body])->getBody(), true);
 	}
@@ -216,13 +156,8 @@ class Client
 	 * @param array $body
 	 * @return mixed
 	 */
-	private function put($method, $body = [])
+	public function put($method, $body = [])
 	{
 		return \GuzzleHttp\json_decode($this->guzzleClient->request('PUT', $method, ['json' => $body])->getBody(), true);
-	}
-
-	public function guzzleClient()
-	{
-		return $this->guzzleClient;
 	}
 }
