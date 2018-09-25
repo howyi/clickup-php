@@ -97,20 +97,6 @@ class Client
 	}
 
 	/**
-	 * @param int   $teamId
-	 * @param array $params
-	 * @return TaskCollection
-	 */
-	public function getTasks($teamId, $params)
-	{
-		return new TaskCollection(
-			$this,
-			$this->get("team/$teamId/task", $params)['tasks'],
-			$teamId
-		);
-	}
-
-	/**
 	 * @param int $taskListId
 	 * @param array $body
 	 * @return array

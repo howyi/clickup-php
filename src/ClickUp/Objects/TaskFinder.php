@@ -4,6 +4,9 @@ namespace ClickUp\Objects;
 
 use ClickUp\Client;
 
+/**
+ * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/get-tasks.html
+ */
 class TaskFinder
 {
 	/* @var Client $client */
