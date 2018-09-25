@@ -2,7 +2,6 @@
 
 namespace ClickUp;
 
-use ClickUp\Objects\TaskCollection;
 use ClickUp\Objects\TaskFinder;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
@@ -62,59 +61,12 @@ class Client
 	}
 
 	/**
-	 * @param int $projectId
-	 * @param array $body
-	 * @return array
-	 */
-	public function createTaskList($projectId, $body)
-	{
-		return $this->post(
-			"project/$projectId/list",
-			$body
-		);
-	}
-
-	/**
-	 * @param int   $taskListId
-	 * @param array $body
-	 * @return array
-	 */
-	public function editTaskList($taskListId, $body)
-	{
-		return $this->put(
-			"list/$taskListId",
-			$body
-		);
-	}
-
-	/**
 	 * @param int $teamId
 	 * @return TaskFinder
 	 */
 	public function taskFinder($teamId)
 	{
 		return new TaskFinder($this, $teamId);
-	}
-
-	/**
-	 * @param int $taskListId
-	 * @param array $body
-	 * @return array
-	 */
-	public function createTask($taskListId, $body)
-	{
-		return $this->post(
-			"list/$taskListId/task",
-			$body
-		);
-	}
-
-	public function editTask($taskId, $body)
-	{
-		return $this->put(
-			"task/$taskId",
-			$body
-		);
 	}
 
 	/**

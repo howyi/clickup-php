@@ -270,8 +270,8 @@ class Task extends AbstractObject
 	 */
 	public function edit($body)
 	{
-		return $this->client()->editTask(
-			$this->id(),
+		return $this->client()->put(
+			"task/{$this->id()}",
 			$body
 		);
 	}

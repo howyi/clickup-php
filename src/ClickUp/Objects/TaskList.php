@@ -56,8 +56,8 @@ class TaskList extends AbstractObject
 	 */
 	public function edit($body)
 	{
-		return $this->client()->editTaskList(
-			$this->id(),
+		return $this->client()->put(
+			"list/{$this->id()}",
 			$body
 		);
 	}
@@ -69,8 +69,8 @@ class TaskList extends AbstractObject
 	 */
 	public function createTask($body)
 	{
-		return $this->client()->createTask(
-			$this->id(),
+		return $this->client()->post(
+			"list/{$this->id()}/task",
 			$body
 		);
 	}
