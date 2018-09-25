@@ -120,7 +120,7 @@ class Project extends AbstractObject
 	public function createTaskList($body)
 	{
 		return $this->client()->post(
-			"project/$projectId/list",
+			"project/{$this->id()}/list",
 			$body
 		);
 	}

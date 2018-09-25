@@ -40,7 +40,7 @@ $team->spaces()->objects();
 // -> \ClickUp\Objects\Space[]
 
 // space by space id
-$space = $team->spaces()->getByKey(888);
+$space = $team->space(888);
 // space by name
 $space = $team->spaces()->getByName('spaaaaace');
 // -> \ClickUp\Objects\Space
@@ -51,7 +51,7 @@ $space->projects()->objects();
 // -> \ClickUp\Objects\Project[]
 
 // project by project id
-$project = $space->projects()->getByKey(11111);
+$project = $space->project(11111);
 // project by name
 $project = $space->projects()->getByName('super cool project');
 // -> \ClickUp\Objects\Project
@@ -61,7 +61,7 @@ $project->taskLists()->objects();
 // -> \ClickUp\Objects\TaskList[]
 
 // list by list id
-$taskList = $project->taskLists()->getByKey(9999);
+$taskList = $project->taskList(9999);
 // list by name
 $taskList = $project->taskLists()->getByName('T A S K L I S T');
 // -> \ClickUp\Objects\TaskList
@@ -71,7 +71,7 @@ $tasks = $taskList->tasks($teamId)->getCollection()->objects();
 // -> \ClickUp\Objects\Task[]
 
 // task by task id
-$task = $client->tasks($teamId)->getByTaskId(3333);
+$task = $taskList->task(3333);
 // -> \ClickUp\Objects\Task
 ```
 
