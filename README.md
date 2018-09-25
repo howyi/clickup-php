@@ -67,7 +67,7 @@ $taskList = $project->taskLists()->getByName('T A S K L I S T');
 // -> \ClickUp\Objects\TaskList
 
 // tasks by list
-$tasks = $taskList->tasks($teamId)->getCollection()->objects();
+$tasks = $taskList->tasks()->objects();
 // -> \ClickUp\Objects\Task[]
 
 // task by task id
