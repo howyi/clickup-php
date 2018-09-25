@@ -18,8 +18,8 @@ class User extends AbstractObject
 	/* @var string $profilePicture */
 	private $profilePicture;
 
-	/* @var string $initials */
-	private $initials;
+	/* @var string|null $initials */
+	private $initials = null;
 
 	/**
 	 * @return int
@@ -54,7 +54,7 @@ class User extends AbstractObject
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function initials()
 	{
@@ -70,6 +70,6 @@ class User extends AbstractObject
 		$this->username = $array['username'];
 		$this->color = $array['color'];
 		$this->profilePicture = $array['profilePicture'];
-		$this->initials = $array['initials'];
+		$this->initials = isset($array['initials']) ? $array['initials'] : null;
 	}
 }

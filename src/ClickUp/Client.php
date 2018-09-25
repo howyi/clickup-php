@@ -124,7 +124,8 @@ class Client
 	 */
 	public function get($method, $params = [])
 	{
-		return \GuzzleHttp\json_decode($this->guzzleClient->request('GET', $method, ['query' => $params])->getBody(), true);
+		$response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
+		return \GuzzleHttp\json_decode($response->getBody(), true);
 	}
 
 	/**
