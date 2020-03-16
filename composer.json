@@ -19,6 +19,6 @@
       "psr-4": { "ClickUp\\": "src/ClickUp/" }
     },
     "require-dev": {
-        "psy/psysh": "^0.9.8"
+        "psy/psysh": "^0.9.8 || ^0.10.0"
     }
 }
