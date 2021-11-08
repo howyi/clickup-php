@@ -74,7 +74,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	 */
 	public function objects()
 	{
-		return $this->objects;
+		return $this->objects ?? [];
 	}
 
 	/**
