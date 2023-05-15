@@ -263,6 +263,15 @@ class Task extends AbstractObject
 		return $this->team;
 	}
 
+    /**
+     * @return string URL
+     */
+	public function url()
+	{
+		return $this->url;
+	}
+
+    
 	/**
 	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/edit-task.html
 	 * @param array $body
