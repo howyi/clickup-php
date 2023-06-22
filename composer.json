@@ -1,5 +1,5 @@
 {
-    "name": "howyi/clickup-php",
+    "name": "logicbydesign/clickup-php",
     "description": "ClickUp API client (unofficial)",
     "keywords": ["ClickUp", "click-up", "api"],
     "type": "library",
