@@ -285,6 +285,22 @@ class Task extends AbstractObject
 		);
 	}
 
+	    /**
+     * @param array $body
+     * @return array
+     */
+    public function attachments($attachments)
+    {
+        $response = $this->client()->multipart(
+            "task/{$this->id()}/attachment",
+            [
+                'multipart' => $attachments
+            ]
+        );
+
+        return $response->getStatusCode() == 200 ? true : false;
+    }
+
 	/**
 	 * @param $array
 	 * @throws \Exception
